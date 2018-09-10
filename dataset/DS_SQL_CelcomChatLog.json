@@ -1,0 +1,100 @@
+{
+	"name": "DS_SQL_CelcomChatLog",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Designer_SQLDb",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureSqlTable",
+		"structure": [
+			{
+				"name": "Type",
+				"type": "String"
+			},
+			{
+				"name": "Id",
+				"type": "String"
+			},
+			{
+				"name": "Timestamp",
+				"type": "DateTime"
+			},
+			{
+				"name": "ServiceUrl",
+				"type": "String"
+			},
+			{
+				"name": "ChannelId",
+				"type": "String"
+			},
+			{
+				"name": "ConversationId",
+				"type": "String"
+			},
+			{
+				"name": "SenderName",
+				"type": "String"
+			},
+			{
+				"name": "CurrentTimestamp",
+				"type": "String"
+			},
+			{
+				"name": "FromId",
+				"type": "String"
+			},
+			{
+				"name": "FromName",
+				"type": "String"
+			},
+			{
+				"name": "RecipientId",
+				"type": "String"
+			},
+			{
+				"name": "RecipientName",
+				"type": "String"
+			},
+			{
+				"name": "Text",
+				"type": "String"
+			},
+			{
+				"name": "InputHint",
+				"type": "String"
+			},
+			{
+				"name": "replyToId",
+				"type": "String"
+			},
+			{
+				"name": "ChannelSenderId",
+				"type": "String"
+			},
+			{
+				"name": "ChannelRecipientId",
+				"type": "String"
+			},
+			{
+				"name": "ChannelTimestamp",
+				"type": "String"
+			},
+			{
+				"name": "ChannelMessageId",
+				"type": "String"
+			},
+			{
+				"name": "ChannelMessageSeq",
+				"type": "String"
+			},
+			{
+				"name": "_ts",
+				"type": "Int32"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[dbo].[CelcomChatLog]"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

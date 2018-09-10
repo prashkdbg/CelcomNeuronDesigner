@@ -1,0 +1,100 @@
+{
+	"name": "DS_Cosmos_CelcomChatLog",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Designer_CosmosDb",
+			"type": "LinkedServiceReference"
+		},
+		"type": "DocumentDbCollection",
+		"structure": [
+			{
+				"name": "type",
+				"type": "String"
+			},
+			{
+				"name": "id",
+				"type": "String"
+			},
+			{
+				"name": "timestamp",
+				"type": "DateTime"
+			},
+			{
+				"name": "serviceUrl",
+				"type": "String"
+			},
+			{
+				"name": "channelId",
+				"type": "String"
+			},
+			{
+				"name": "conversationId",
+				"type": "String"
+			},
+			{
+				"name": "senderName",
+				"type": "String"
+			},
+			{
+				"name": "currentTimestamp",
+				"type": "DateTime"
+			},
+			{
+				"name": "fromId",
+				"type": "String"
+			},
+			{
+				"name": "fromName",
+				"type": "String"
+			},
+			{
+				"name": "recipientId",
+				"type": "String"
+			},
+			{
+				"name": "recipientName",
+				"type": "String"
+			},
+			{
+				"name": "text",
+				"type": "String"
+			},
+			{
+				"name": "channelSenderId",
+				"type": "String"
+			},
+			{
+				"name": "channelRecipientId",
+				"type": "String"
+			},
+			{
+				"name": "channelTimestamp",
+				"type": "Int64"
+			},
+			{
+				"name": "channelMessageId",
+				"type": "String"
+			},
+			{
+				"name": "channelMessageSeq",
+				"type": "Int64"
+			},
+			{
+				"name": "_ts",
+				"type": "Int64"
+			},
+			{
+				"name": "inputHint",
+				"type": "String"
+			},
+			{
+				"name": "replyToId",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"collectionName": "CelcomChatLog"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

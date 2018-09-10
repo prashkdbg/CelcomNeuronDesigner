@@ -1,0 +1,113 @@
+{
+	"name": "PL_CelcomChatLog",
+	"properties": {
+		"activities": [
+			{
+				"name": "CopyChatLogToDb",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Get_ts",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "CelcomChatLog"
+					},
+					{
+						"name": "Destination",
+						"value": "[dbo].[CelcomChatLog]"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DocumentDbCollectionSource",
+						"query": {
+							"value": "@concat('SELECT c.type,c.id,c.timestamp,c.serviceUrl,c.channelId,c.conversationId,c.senderName,c.currentTimestamp,c[\"from\"].id as fromId,c[\"from\"].name as fromName, c[\"recipient\"].id as recipientId,c[\"recipient\"].name as recipientName, c.text,c.inputHint,c.replyToId,c.channelData.sender.id as channelSenderId, c.channelData.recipient.id as channelRecipientId,c.channelData.timestamp as channelTimestamp,c.channelData.message.mid as channelMessageId,c.channelData.message.seq as channelMessageSeq,c._ts from c where c._ts >', activity('Get_ts').output.firstRow.maxval)",
+							"type": "Expression"
+						},
+						"nestingSeparator": "."
+					},
+					"sink": {
+						"type": "SqlSink",
+						"writeBatchSize": 10000
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"dataIntegrationUnits": 0,
+					"translator": {
+						"type": "TabularTranslator",
+						"columnMappings": {
+							"type": "Type",
+							"id": "Id",
+							"timestamp": "Timestamp",
+							"serviceUrl": "ServiceUrl",
+							"channelId": "ChannelId",
+							"conversationId": "ConversationId",
+							"senderName": "SenderName",
+							"currentTimestamp": "CurrentTimestamp",
+							"fromId": "FromId",
+							"fromName": "FromName",
+							"recipientId": "RecipientId",
+							"recipientName": "RecipientName",
+							"text": "Text",
+							"inputHint": "InputHint",
+							"replyToId": "replyToId",
+							"channelSenderId": "ChannelSenderId",
+							"channelRecipientId": "ChannelRecipientId",
+							"channelTimestamp": "ChannelTimestamp",
+							"channelMessageId": "ChannelMessageId",
+							"channelMessageSeq": "ChannelMessageSeq",
+							"_ts": "_ts"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Cosmos_CelcomChatLog",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQL_CelcomChatLog",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Get_ts",
+				"type": "Lookup",
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"source": {
+						"type": "SqlSource",
+						"sqlReaderQuery": "select ISNULL(max(_ts), 0) as maxval from dbo.CelcomChatLog"
+					},
+					"dataset": {
+						"referenceName": "DS_SQL_CelcomChatLog",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
